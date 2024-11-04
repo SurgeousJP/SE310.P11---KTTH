@@ -1,5 +1,9 @@
 # SE310.P11---KTTH
 
+## Accounts
+User: b 2
+Admin: a 1
+
 ## UI Screen
 ![Alt Text](IMG1.png)
 
