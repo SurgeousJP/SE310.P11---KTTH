@@ -21,7 +21,7 @@ export interface BookDetailDTO {
   discountPercentage?: number | null;
   itemWeight?: number | null;
   authorName?: string;
-  bookGenres: Genre[]; // Assuming Genre is defined as a type/interface
+  genre_id: number;
   formatId?: number | null;
   formatName?: string | null;
   publisherId: number;

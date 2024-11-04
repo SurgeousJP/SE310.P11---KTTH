@@ -1,14 +1,17 @@
 import { bookApi } from "@/apis/book.api";
 import Input from "@/components/Input/Input";
+import { BookDetailDTO } from "@/types/DTOs/BookCatalog/BookDetailDTO.type";
 import { CreateBookDTO } from "@/types/DTOs/BookCatalog/CreateBookDTO.type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Dropdown, Select } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { BiSolidMessageRoundedCheck } from "react-icons/bi";
-import { NavigationType, useNavigate } from "react-router-dom";
+import { NavigationType, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditProduct = () => {
+
+  const { id } = useParams();
   const { data: bookData, isLoading: isLoadingBookData } = useQuery(
     {
       queryKey: ['book', id],
@@ -18,9 +21,8 @@ const EditProduct = () => {
     }
   ); 
 
-  const { id } = useParams();
-
   const [book, setBook] = useState({
+    id: id,
     languageCode: "",
     averageRating: 0,
     description: "",
@@ -44,7 +46,35 @@ const EditProduct = () => {
     genre_id: 1,
   });
 
-
+  useEffect(() => {
+    if (!isLoadingBookData && bookData){
+      const data = bookData.data;
+      setBook({
+        id: id,
+        languageCode: data.languageCode ?? "",
+        averageRating: data.averageRating ?? 0,
+        description: data.description ?? "",
+        numPages: data.numPages ?? 0,
+        publicationDay: data.publicationDay ?? 1,
+        publicationMonth: data.publicationMonth ?? 11,
+        publicationYear: data.publicationYear ?? 2024,
+        isbn13: "",
+        imageUrl: data.imageUrl ?? "",
+        ratingsCount: data.ratingsCount ?? 0,
+        title: data.title ?? "",
+        titleWithoutSeries: data.titleWithoutSeries ?? "",
+        price: data.price ?? 0,
+        availability: data.availability ?? 0,
+        dimensions: data.dimensions ?? "2 x 2 x 2 inches",
+        discountPercentage: data.discountPercentage ?? 0,
+        itemWeight: data.itemWeight ?? 10,
+        authorName: data.authorName ?? "",
+        formatId: data.formatId ?? 1,
+        publisherId: data.publisherId ?? 1,
+        genre_id: data.genre_id ?? 1,
+      })
+    }
+  }, [bookData, isLoadingBookData])
 
   const [currentGenreId, setCurrentGenreId] = useState(38);
   const onDropdownChange = (e) => {
@@ -78,16 +108,18 @@ const EditProduct = () => {
 
   const navigate = useNavigate();
 
-  const createProductMutation = useMutation({
-    mutationKey: ['add-product', book],
-    mutationFn: async(book: CreateBookDTO) => {
-      const result = await bookApi.createBook(book);
+  const updateProductMutation = useMutation({
+    mutationKey: ['update-product', book],
+    mutationFn: async(book: BookDetailDTO) => {
+      console.log("Update book prepare...: " + book)
+      const result = await bookApi.updateBook(book);
       if (result.status !== 200) {
         toast.error(result.statusText);
         return;
-      }
-
-      toast.success("Product has been created");
+      }      
+    },
+    onSuccess: () => {
+      toast.success("Product has been updated");
       navigate(`/admin-list`);
     }
   });
@@ -207,7 +239,7 @@ const EditProduct = () => {
                   </Select>
                 </div>
               )}
-              <button onClick={() => createProductMutation.mutate(book)} className="bg-blue-500 text-white mt-2 p-4 rounded-lg font-semibold">
+              <button onClick={() => updateProductMutation.mutate(book)} className="bg-blue-500 text-white mt-2 p-4 rounded-lg font-semibold">
                 Save
               </button>
             </div>

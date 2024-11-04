@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\TikiBackend\\BookCatalog.API.csproj": {}
+    "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\SE310.P11---KTTH\\TikiBackend\\BookCatalog.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\TikiBackend\\BookCatalog.API.csproj": {
+    "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\SE310.P11---KTTH\\TikiBackend\\BookCatalog.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\TikiBackend\\BookCatalog.API.csproj",
+        "projectUniqueName": "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\SE310.P11---KTTH\\TikiBackend\\BookCatalog.API.csproj",
         "projectName": "BookCatalog.API",
-        "projectPath": "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\TikiBackend\\BookCatalog.API.csproj",
+        "projectPath": "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\SE310.P11---KTTH\\TikiBackend\\BookCatalog.API.csproj",
         "packagesPath": "C:\\Users\\tuanb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\TikiBackend\\obj\\",
+        "outputPath": "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\SE310.P11---KTTH\\TikiBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tuanb\\AppData\\Roaming\\NuGet\\NuGet.Config",

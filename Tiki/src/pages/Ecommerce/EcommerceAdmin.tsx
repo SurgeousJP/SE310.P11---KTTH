@@ -1,10 +1,14 @@
 import { bookApi } from "@/apis/book.api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import ProductListItem from "./ProductListItem";
 import { KurumiList } from "@/assets/mockdata";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "flowbite-react";
+import { toast } from "react-toastify";
+import authApi from "@/apis/auth.api";
+import { clearLS } from "@/utils/auth";
+import { useAppContext } from "@/contexts/app.context";
 
 const EcommerceAdmin = () => {
   const [pageIndex, setPageIndex] = useState(0);
@@ -21,9 +25,21 @@ const EcommerceAdmin = () => {
 
   const handleAddBook = (e) => {
     navigate(`/add-product`);
-  }
+  };
 
   const totalPages = Math.floor((data?.totalItems ?? 0) / pageSize) + 1;
+
+  const { isAuthenticated, setIsAuthenticated } = useAppContext();
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      clearLS();
+      setIsAuthenticated(false);
+      toast.success("Logout successfully");
+      navigate("/");
+      await authApi.logout();
+    },
+  });
 
   return (
     <div className="font-sans">
@@ -65,6 +81,30 @@ const EcommerceAdmin = () => {
                 Search
               </button>
             </div>
+            <div id="users" className="flex gap-4">
+              <button className="flex gap-2">
+                <img
+                  className="w-6 h-6 inline"
+                  src="https://salt.tikicdn.com/ts/upload/b4/90/74/6baaecfa664314469ab50758e5ee46ca.png"
+                ></img>
+                <span>Homepage</span>
+              </button>
+              <button className="flex gap-2">
+                <img
+                  className="w-6 h-6 inline"
+                  src="https://salt.tikicdn.com/ts/upload/07/d5/94/d7b6a3bd7d57d37ef6e437aa0de4821b.png"
+                ></img>
+                Account
+              </button>
+              <button
+                className="flex gap-2"
+                onClick={() => {
+                  logoutMutation.mutate();
+                }}
+              >
+                Sign out
+              </button>
+            </div>
           </div>
         </div>
         <div className="h-[1px] w-full bg-gray-300"></div>
@@ -92,7 +132,10 @@ const EcommerceAdmin = () => {
         <div className="flex flex-col w-full bg-white h-full mx-[6rem] p-4 rounded-md shadow-sm">
           <div className="flex flex-row justify-between items-center p-6 pt-4">
             <span className="text-xl font-semibold">Product list</span>
-            <button onClick={handleAddBook} className="border-1 rounded-md p-2 px-4 hover:bg-blue-300">
+            <button
+              onClick={handleAddBook}
+              className="border-1 rounded-md p-2 px-4 hover:bg-blue-300"
+            >
               Add product
             </button>
           </div>
@@ -105,22 +148,30 @@ const EcommerceAdmin = () => {
                   &nbsp;&nbsp;&nbsp;
                 </span>
               </div>
-              <span className="text-lg ml-12">&nbsp;&nbsp;&nbsp;&nbsp;Price</span>
+              <span className="text-lg ml-12">
+                &nbsp;&nbsp;&nbsp;&nbsp;Price
+              </span>
               <span className="text-lg mr-6">Avail</span>
               <div className="flex flex-row gap-4 text-lg mr-10">Action</div>
             </div>
             <hr className="w-9/10 border-t border-gray-200" />
           </div>
-          {!isLoading && data?.data.map((product, index) => {
-            return (
-              <div className="px-4">
-                {index > 0 && (
-                  <hr className="w-9/10 border-t border-gray-200" />
-                )}
-                <ProductListItem  item={product}  />
-              </div>
-            );
-          })}
+          {!isLoading &&
+            data?.data.map((product, index) => {
+              return (
+                <div className="px-4">
+                  {index > 0 && (
+                    <hr className="w-9/10 border-t border-gray-200" />
+                  )}
+                  <ProductListItem
+                    item={product}
+                    id={product.id}
+                    pageIndex={pageIndex}
+                    pageSize={pageSize}
+                  />
+                </div>
+              );
+            })}
           {!isLoading && data?.data.length !== 0 && (
             <div className="flex justify-center gap-4 mt-8">
               <Pagination

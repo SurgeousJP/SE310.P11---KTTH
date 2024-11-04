@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YhyuniCa4ybZ7m7ysVjyRhLEdAH9tsNNh6U+QtjzgeS9H/lWNVITj6wr6tNo3VawcOL8ZLG+3oaZhZ3iWf8+QA==",
+  "dgSpecHash": "QBRgSi64Kjkt8cFQC+OIPvPZmE4ws1MdRdJ8IqSRYshoPm3RPC/I/yvUMl+oNxVk1d798CI9n5nV0UNY1/Rocg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\TikiBackend\\BookCatalog.API.csproj",
+  "projectFilePath": "C:\\Users\\tuanb\\Downloads\\.NET Core\\KTTH\\SE310.P11---KTTH\\TikiBackend\\BookCatalog.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tuanb\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\tuanb\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

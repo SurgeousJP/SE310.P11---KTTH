@@ -16,7 +16,7 @@ export default function useRouteElement() {
     },
     {
       element: <EditProduct />,
-      path: '/edit-product'
+      path: '/edit-product/:id'
     },
     {
       element: <Ecommerce />,
